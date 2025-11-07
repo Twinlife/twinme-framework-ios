@@ -1,0 +1,6 @@
+.DS_Store
+Twinme.xcodeproj/project.xcworkspace/xcuserdata
+Twinme.xcodeproj/xcuserdata
+*~
+*.log
+

@@ -1,0 +1,129 @@
+name: Twinme
+
+############
+# Options
+############
+
+options:
+  minimumXcodeGenVersion: 2.10
+  groupSortPosition: top
+  generateEmptyDirectories: true
+  createIntermediateGroups: true
+  deploymentTarget: 
+    iOS: "12.0"
+
+include:
+  - headers.yml
+
+projectReferences:
+  TwinlifeFramework:
+    path: ../TwinlifeFramework/Twinlife.xcodeproj
+############
+# Targets
+############
+
+targetTemplates:
+  Twinme:
+    type: library.static
+    platform: iOS
+
+    configFiles:
+      Debug: Twinlife.xcconfig
+      Release: Twinlife.xcconfig
+
+    settings:
+      base:
+        DEVELOPMENT_TEAM: "MU7KFWAKY9"
+        #iPhone only
+        TARGETED_DEVICE_FAMILY: 1
+        GCC_PREPROCESSOR_DEFINITIONS: "$(inherited) TWINME_FRAMEWORK_VERSION='\"${TWINME_FRAMEWORK_VERSION}\"' ${flavorName}"
+        GCC_PREFIX_HEADER: "Prefix.pch"
+        PUBLIC_HEADERS_FOLDER_PATH: "include/Twinme"
+        ONLY_ACTIVE_ARCH: NO
+        #update this setting if you add a new pod to the Podfile
+        OTHER_LDFLAGS: '$(inherited) -ObjC'
+        HEADER_SEARCH_PATHS:
+          - ${SRCROOT}/../Pods/Headers/Public/CocoaLumberjack
+          - ${SRCROOT}/../Pods/Headers/Public/SSZipArchive
+          - ${SRCROOT}/../WebRTCFramework/Headers
+          - ${SRCROOT}/../Pods/Headers/Public
+        SKIP_INSTALL: YES
+      
+      configs:
+        debug:
+          ENABLE_NS_ASSERTIONS: YES
+
+    # scheme
+    scheme:
+      gatherCoverageData: false
+        
+    # sources
+    sources:
+      - path: Twinme
+        includes: 
+          - "**/*.m"
+          - "**/*.h"
+        buildPhase: sources
+
+    dependencies:
+      - target: TwinlifeFramework/${twinlifeTargetName}
+
+targets:
+
+  # -----------
+  # Mytwinlife
+  # -----------
+
+  TwinmeMytwinlife:
+    templates:
+      - Twinme
+    templateAttributes:
+      flavorName: MYTWINLIFE
+      twinlifeTargetName: TwinlifeMytwinlife
+
+  # -----------
+  # MytwinlifePlus
+  # -----------
+
+  TwinmeMytwinlifePlus:
+    templates:
+      - Twinme
+    templateAttributes:
+      flavorName: MYTWINLIFE_PLUS
+      twinlifeTargetName: TwinlifeMytwinlifePlus
+
+  # -----------
+  # Twinme
+  # -----------
+
+  TwinmeTwinme:
+    templates:
+      - Twinme
+    templateAttributes:
+      flavorName: TWINME
+      twinlifeTargetName: TwinlifeTwinme
+
+  # -----------
+  # Twinme Plus
+  # -----------
+
+  TwinmeTwinmePlus:
+    templates:
+      - Twinme
+    templateAttributes:
+      flavorName: TWINME_PLUS
+      twinlifeTargetName: TwinlifeTwinmePlus
+ 
+  # -----------
+  # Skred
+  # -----------
+
+  TwinmeSkred:
+    templates:
+      - Twinme
+    templateAttributes:
+      flavorName: SKRED
+      twinlifeTargetName: TwinlifeSkred
+    settings:
+      base:
+        DEVELOPMENT_TEAM: "V67CQ37J89"

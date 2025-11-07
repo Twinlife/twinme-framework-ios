@@ -1,0 +1,11 @@
+//
+//  Twinlife.xcconfig
+//
+//  Created by Stephane Carrez on 08/03/2023.
+//  Copyright © 2023 Twinlife-Systems. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+TWINME_FRAMEWORK_VERSION=2.12.4

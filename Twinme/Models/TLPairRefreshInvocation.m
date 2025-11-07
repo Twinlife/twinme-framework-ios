@@ -1,0 +1,26 @@
+/*
+ *  Copyright (c) 2015-2024 twinlife SA.
+ *  SPDX-License-Identifier: AGPL-3.0-only
+ *
+ *  Contributors:
+ *   Christian Jacquemot (Christian.Jacquemot@twinlife-systems.com)
+ */
+
+#import "TLPairRefreshInvocation.h"
+
+//
+// Implementation: TLPairRefreshInvocation
+//
+
+@implementation TLPairRefreshInvocation
+
+- (nonnull instancetype)initWithId:(nonnull NSUUID*)uuid receiver:(nonnull id<TLRepositoryObject>)receiver invocationAttributes:(nullable NSArray<TLAttributeNameValue *> *)invocationAttributes {
+    
+    self = [super initWithId:uuid receiver:receiver background:true];
+    if (self) {
+        _invocationAttributes = invocationAttributes;
+    }
+    return self;
+}
+
+@end
