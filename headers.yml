@@ -24,6 +24,7 @@ targetTemplates:
           - "Export/TLExportExecutor.h"
           - "Executors/TLGetAccountMigrationExecutor.h"
           - "Actions/TLGetTwincodeAction.h"
+          - "Actions/TLFeedbackAction.h"
           - "Models/TLGroup.h"
           - "Models/TLGroupMember.h"
           - "Models/TLInvitation.h"

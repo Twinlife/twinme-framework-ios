@@ -234,6 +234,7 @@ static const int CREATE_OBJECT_DONE = 1 << 7;
         [[self.twinmeContext getRepositoryService] createObjectWithFactory:[TLCallReceiver FACTORY] accessRights:TLRepositoryServiceAccessRightsPrivate withInitializer:^(id<TLRepositoryObject> object) {
             TLCallReceiver *callReceiver = (TLCallReceiver *)object;
             callReceiver.name = self.name;
+            callReceiver.objectDescription = self.callReceiverDescription;
             callReceiver.space = self.space;
             [callReceiver setTwincodeFactory:self.twincodeFactory];
         } withBlock:^(TLBaseServiceErrorCode errorCode, id<TLRepositoryObject> object) {

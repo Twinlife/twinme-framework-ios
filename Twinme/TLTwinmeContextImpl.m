@@ -2445,7 +2445,7 @@ TL_CREATE_ASSERT_POINT(INCOMING_PEER_CONNECTION, 3004)
     for (TLNotification *notif in notifications) {
         TLNotification *notification = (TLNotification *)notif;
         
-        if (!notification.acknowledged && (notification.notificationType == TLNotificationTypeNewTextMessage || notification.notificationType == TLNotificationTypeNewImageMessage || notification.notificationType == TLNotificationTypeNewAudioMessage || notification.notificationType == TLNotificationTypeNewVideoMessage || notification.notificationType == TLNotificationTypeNewGroupInvitation || notification.notificationType == TLNotificationTypeNewGroupJoined || notification.notificationType == TLNotificationTypeNewGeolocation || notification.notificationType == TLNotificationTypeResetConversation || notification.notificationType == TLNotificationTypeUpdatedAnnotation)) {
+        if (!notification.acknowledged && (notification.notificationType == TLNotificationTypeNewTextMessage || notification.notificationType == TLNotificationTypeNewImageMessage || notification.notificationType == TLNotificationTypeNewAudioMessage || notification.notificationType == TLNotificationTypeNewVideoMessage || notification.notificationType == TLNotificationTypeNewFileMessage || notification.notificationType == TLNotificationTypeNewGroupInvitation || notification.notificationType == TLNotificationTypeNewGroupJoined || notification.notificationType == TLNotificationTypeNewGeolocation || notification.notificationType == TLNotificationTypeResetConversation || notification.notificationType == TLNotificationTypeUpdatedAnnotation)) {
             
             [self acknowledgeNotificationWithRequestId:[TLBaseService DEFAULT_REQUEST_ID] notification:notification];
         }
