@@ -145,11 +145,11 @@ static const int GET_PEER_TWINCODE_IMAGE_DONE = 1 << 9;
         if ((self.state & UPDATE_TWINCODE_OUTBOUND) == 0) {
             self.state |= UPDATE_TWINCODE_OUTBOUND;
             
-            if (self.previousPeerTwincodeOutbound && [self.previousPeerTwincodeOutbound isSigned]) {
+            if (self.peerTwincodeOutbound != self.previousPeerTwincodeOutbound && self.previousPeerTwincodeOutbound && [self.previousPeerTwincodeOutbound isSigned]) {
                 [[self.twinmeContext getTwincodeOutboundService] associateTwincodes:self.twincodeOutbound previousPeerTwincode:self.previousPeerTwincodeOutbound peerTwincode:self.peerTwincodeOutbound];
             }
-            if ([self.twincodeOutbound isSigned] && [self.peerTwincodeOutbound isTrusted]) {
-                TLCapabilities *identityCapabilities = [self.contact identityCapabilities];
+            TLCapabilities *identityCapabilities = [self.contact identityCapabilities];
+            if ([self.twincodeOutbound isSigned] && [self.peerTwincodeOutbound isTrusted] && ![identityCapabilities isTrustedWithTwincodeId:self.peerTwincodeOutbound.uuid]) {
                 [identityCapabilities setTrustedWithValue:self.peerTwincodeOutbound.uuid];
                 
                 NSMutableArray *attributes = [NSMutableArray array];

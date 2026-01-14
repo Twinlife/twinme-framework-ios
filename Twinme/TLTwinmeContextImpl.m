@@ -665,6 +665,14 @@ TL_CREATE_ASSERT_POINT(INCOMING_PEER_CONNECTION, 3004)
     return ENABLE_REPORT_LOCATION;
 }
 
++ (nonnull NSString *)APPLICATION_SCHEME {
+#ifdef SKRED
+    return @"skred";
+#else
+    return @"twinme";
+#endif
+}
+
 - (instancetype)initWithTwinmeApplication:(TLTwinmeApplication *)twinmeApplication configuration:(TLTwinmeConfiguration *)configuration {
     DDLogVerbose(@"%@ initWithTwinmeApplication: %@ configuration: %@", LOG_TAG, twinmeApplication, configuration);
     
@@ -798,6 +806,27 @@ TL_CREATE_ASSERT_POINT(INCOMING_PEER_CONNECTION, 3004)
     [self getPushNotificationContentWithDictionary:dictionaryPayload withBlock:^(TLBaseServiceErrorCode status, TLPushNotificationContent *notificationContent) {
         completionHandler(status, notificationContent);
     }];
+}
+
+- (nullable id<TLOriginator>)findSubjectWithHandle:(nonnull NSString *)handle {
+    DDLogInfo(@"%@ findSubjectWithHandle: %@", LOG_TAG, handle);
+
+    NSArray<NSString *> *parts = [handle componentsSeparatedByString:@":"];
+    NSUUID *contactId;
+    if (parts.count != 2 || ![parts[0] isEqual:[TLTwinmeContext APPLICATION_SCHEME]]) {
+        return nil;
+    }
+
+    contactId = [NSUUID toUUID:parts[1]];
+    if (!contactId) {
+        return nil;
+    }
+
+    TLRepositoryService *repositoryService = [self getRepositoryService];
+    NSArray *factories = [NSArray arrayWithObjects: [TLContact FACTORY], [TLGroup FACTORY], [TLCallReceiver FACTORY], nil];
+
+    TLFindResult *result = [repositoryService findObjectWithInboundId:NO uuid:contactId factories:factories];
+    return (result.errorCode == TLBaseServiceErrorCodeSuccess) ? (id<TLOriginator>)result.object : nil;
 }
 
 //

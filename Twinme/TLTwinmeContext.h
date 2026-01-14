@@ -144,6 +144,8 @@
 
 + (nonnull NSString *)LEVELS_CONTEXT_NAME;
 
++ (nonnull NSString *)APPLICATION_SCHEME;
+
 //
 // twinme URLs
 //
@@ -177,6 +179,8 @@
 - (void)setPushNotificationWithVariant:(nonnull NSString*)variant token:(nonnull NSString*)token;
 
 - (void)didReceiveIncomingPushWithPayload:(nonnull NSDictionary *)dictionaryPayload application:(nullable id<TLApplication>)application completionHandler:(nonnull void (^)(TLBaseServiceErrorCode status, TLPushNotificationContent * _Nullable notificationContent))completionHandler terminateCompletionHandler:(nullable void (^)(TLBaseServiceErrorCode status))terminateHandler;
+
+- (nullable id<TLOriginator>)findSubjectWithHandle:(nonnull NSString *)handle;
 
 # pragma mark - Profile management
 
